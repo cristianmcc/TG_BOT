@@ -1,16 +1,18 @@
-import os
-from telegram.ext import Updater, CommandHandler
+import telebot
 
-def start(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Olá, eu sou um bot do Telegram!")
+CHAVE_API = "6220194716:AAEARuQ9WIa9z37xIhYyVVjLR5U7UhYJ-Qw"
 
-def main():
-    TOKEN = os.environ.get('6248810171:AAHqayi78WsB0DJeo3PzzAXND5iWcsjDC68')
-    updater = Updater(TOKEN, use_context=True)
-    dp = updater.dispatcher
-    dp.add_handler(CommandHandler("start", start))
-    updater.start_polling()
-    updater.idle()
+bot = telebot.TeleBot(CHAVE_API)
 
-if __name__ == '__main__':
-    main()
+def verificar(mensagem):
+    if mensagem.text == "AAAAA":
+        return True
+    else:
+        return True
+
+@bot.message_handler(func=verificar)
+def responder(mensagem):
+    bot.reply_to(mensagem, "Oi TESTE2")
+
+
+bot.polling()
