@@ -1,17 +1,16 @@
-from telegram.ext import Updater
+import os
+from telegram.ext import Updater, CommandHandler
 
-# Substitua a string "TOKEN" pelo seu token de acesso
-updater = Updater("6248810171:AAHqayi78WsB0DJeo3PzzAXND5iWcsjDC68")
-
-# Adicione mais código para definir os comandos do seu bot e outras funcionalidades
 def start(update, context):
-    context.bot.send_message(chat_id=update.effective_chat.id, text="Olá! Eu sou um bot CMC.")
+    context.bot.send_message(chat_id=update.effective_chat.id, text="Olá, eu sou um bot do Telegram!")
 
-# Criando o handler para o comando /start
-start_handler = CommandHandler('start', start)
+def main():
+    TOKEN = os.environ.get('6248810171:AAHqayi78WsB0DJeo3PzzAXND5iWcsjDC68')
+    updater = Updater(TOKEN, use_context=True)
+    dp = updater.dispatcher
+    dp.add_handler(CommandHandler("start", start))
+    updater.start_polling()
+    updater.idle()
 
-# Adicionando o handler ao bot
-updater.dispatcher.add_handler(start_handler)
-
-# Iniciando o bot
-updater.start_polling()
+if __name__ == '__main__':
+    main()
